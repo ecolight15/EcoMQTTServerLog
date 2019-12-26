@@ -1,0 +1,16 @@
+# Topic Format
+#    Replace format
+#      {server} : "Topic.ServerName" defined value.
+#      {plugin} : The name of the plugin you requested to send. 
+DateFormat: "yyyy/MM/dd HH:mm:ss.SSS"
+Topic:
+  UserLogin:
+    Enable: true
+    Format: "{server}/p/{plugin}/login"
+  UserLogout:
+    Enable: true
+    Format: "{server}/p/{plugin}/logout"
+
+Mqtt:
+  Publish:
+    QoS: 0

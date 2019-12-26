@@ -1,0 +1,13 @@
+name: EcoMQTTServerLog
+main: jp.minecraftuser.ecomqttserverlog.EcoMQTTServerLog
+version: ${project.version}
+depend: [EcoFramework, EcoMQTT]
+commands:
+  ecms:
+    description: EcoMQTTServerLog commands
+    usage: /ecms
+    permission: ecomqttserverlog
+  ecms reload:
+    description: reload config.yml
+    usage: /ecms reload
+    permission: ecomqttserverlog.reload
