@@ -56,7 +56,7 @@ public class LoginLogoutListener extends ListenerFrame {
         sb.append(p.getAddress().getAddress().getHostAddress());
         try {
             
-            ((EcoMQTTServerLog)plg).getMQTTController().publish(MQTTManager.cnv(conf.getString("Topic.UserLogout.Format"), plg.getName()), sb.toString().getBytes(), true, 0);
+            ((EcoMQTTServerLog)plg).getMQTTController().publish(MQTTManager.cnv(conf.getString("Topic.UserLogin.Format"), plg.getName()), sb.toString().getBytes(), true, 0);
         } catch (EcoMQTTManagerNotFoundException | EcoMQTTPluginNotFoundException ex) {
             Logger.getLogger(LoginLogoutListener.class.getName()).log(Level.SEVERE, null, ex);
         }
