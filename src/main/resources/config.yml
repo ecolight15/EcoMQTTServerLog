@@ -7,9 +7,11 @@ Topic:
   UserLogin:
     Enable: true
     Format: "{server}/p/{plugin}/login"
+    URL: ""
   UserLogout:
     Enable: true
     Format: "{server}/p/{plugin}/logout"
+    URL: ""
 
 Mqtt:
   Publish:
