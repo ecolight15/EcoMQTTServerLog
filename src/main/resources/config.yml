@@ -4,6 +4,14 @@
 #      {plugin} : The name of the plugin you requested to send. 
 DateFormat: "yyyy/MM/dd HH:mm:ss.SSS"
 Topic:
+  OnEnable:
+    Enable: true
+    Format: "{server}/p/{plugin}/onenable"
+    URL: ""
+  OnDisable:
+    Enable: true
+    Format: "{server}/p/{plugin}/ondisable"
+    URL: ""
   UserLogin:
     Enable: true
     Format: "{server}/p/{plugin}/login"

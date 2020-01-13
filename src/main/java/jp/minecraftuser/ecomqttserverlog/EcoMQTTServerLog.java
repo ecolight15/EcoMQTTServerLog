@@ -7,6 +7,7 @@ import jp.minecraftuser.ecomqtt.io.MQTTController;
 import jp.minecraftuser.ecomqttserverlog.commands.EcoMQTTServerLogCommand;
 import jp.minecraftuser.ecomqttserverlog.commands.EcoMQTTServerLogReloadCommand;
 import jp.minecraftuser.ecomqttserverlog.config.EcoMQTTServerLogConfig;
+import jp.minecraftuser.ecomqttserverlog.listener.EnableDisableListener;
 import jp.minecraftuser.ecomqttserverlog.listener.LoginLogoutListener;
 
 /**
@@ -14,6 +15,7 @@ import jp.minecraftuser.ecomqttserverlog.listener.LoginLogoutListener;
  * @author ecolight
  */
 public class EcoMQTTServerLog extends PluginFrame {
+    private EnableDisableListener listener;
     static MQTTController con;
     /**
      * 起動時処理
@@ -21,6 +23,8 @@ public class EcoMQTTServerLog extends PluginFrame {
     @Override
     public void onEnable() {
         initialize();
+        listener = new EnableDisableListener(this);
+        listener.onEnable();
     }
 
     /**
@@ -28,6 +32,7 @@ public class EcoMQTTServerLog extends PluginFrame {
      */
     @Override
     public void onDisable() {
+        listener.onDisable();
         disable();
     }
 
@@ -51,6 +56,13 @@ public class EcoMQTTServerLog extends PluginFrame {
         conf.registerString("DateFormat");
 
         // Topic settings
+        conf.registerBoolean("Topic.OnEnable.Enable");
+        conf.registerString("Topic.OnEnable.Format");
+        conf.registerString("Topic.OnEnable.URL");
+        conf.registerBoolean("Topic.OnDisable.Enable");
+        conf.registerString("Topic.OnDisable.Format");
+        conf.registerString("Topic.OnDisable.URL");
+
         conf.registerBoolean("Topic.UserLogin.Enable");
         conf.registerString("Topic.UserLogin.Format");
         conf.registerString("Topic.UserLogin.URL");

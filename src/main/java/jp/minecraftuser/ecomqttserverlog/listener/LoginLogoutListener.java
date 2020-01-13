@@ -13,7 +13,6 @@ import jp.minecraftuser.ecomqtt.io.exception.EcoMQTTPluginNotFoundException;
 import jp.minecraftuser.ecomqtt.worker.MQTTManager;
 import jp.minecraftuser.ecomqttserverlog.EcoMQTTServerLog;
 import jp.minecraftuser.ecomqttserverlog.model.LoginLogoutJson;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
