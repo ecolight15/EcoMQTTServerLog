@@ -3,6 +3,7 @@ package jp.minecraftuser.ecomqttserverlog.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.util.Objects;
 import org.bukkit.entity.Player;
 
 /**
@@ -40,5 +41,13 @@ public class LoginLogoutJson {
         url = url_;
         count = count_;
         player = new LoginLogoutJsonPlayer(p);
+    }
+    public void check() {
+        Objects.requireNonNull(date);
+        Objects.requireNonNull(type);
+        Objects.requireNonNull(url);
+        Objects.requireNonNull(count);
+        Objects.requireNonNull(player);
+        player.check();
     }
 }

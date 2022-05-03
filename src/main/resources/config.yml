@@ -24,3 +24,29 @@ Topic:
 Mqtt:
   Publish:
     QoS: 0
+
+UUIDLogger:
+  Enabled: false
+  Database:
+    type: "sqlite"
+    name: "uuid.db"
+    server: "localhost:port"
+    user: "user"
+    pass: "pass"
+  ImportEnabled: false
+  Import:
+    type: "sqlite"
+    name: "import.db"
+    server: "localhost:port"
+    user: "user"
+    pass: "pass"
+
+OnlinePlayerLogger:
+  Enabled: false
+  Database:
+    type: "sqlite"
+    name: "online.db"
+    server: "localhost:port"
+    user: "user"
+    pass: "pass"
+  

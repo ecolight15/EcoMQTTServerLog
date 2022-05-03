@@ -37,18 +37,18 @@ public class EnableDisableListener{
      */
     public void onEnable() {
         // ログインのpublishが無効であれば何もしない
-        if (!conf.getBoolean("Topic.OnEnable.Enable")) return;
-        
-        // Config指定のQoSでユーザーログイン情報を通知する
-        EnableDisableJson json = new EnableDisableJson(
-                "onenable",
-                new SimpleDateFormat(conf.getString("DateFormat")).format(new Date()),
-                conf.getString("Topic.OnEnable.URL")
-        );
-        try {
-            ((EcoMQTTServerLog)plg).getMQTTController().publish(MQTTManager.cnv(conf.getString("Topic.OnEnable.Format"), plg.getName()), gson.toJson(json).getBytes(), true, 0);
-        } catch (EcoMQTTManagerNotFoundException | EcoMQTTPluginNotFoundException ex) {
-            Logger.getLogger(EnableDisableListener.class.getName()).log(Level.SEVERE, null, ex);
+        if (conf.getBoolean("Topic.OnEnable.Enable")) {
+            // Config指定のQoSでユーザーログイン情報を通知する
+            EnableDisableJson json = new EnableDisableJson(
+                    "onenable",
+                    new SimpleDateFormat(conf.getString("DateFormat")).format(new Date()),
+                    conf.getString("Topic.OnEnable.URL")
+            );
+            try {
+                ((EcoMQTTServerLog)plg).getMQTTController().publish(MQTTManager.cnv(conf.getString("Topic.OnEnable.Format"), plg.getName()), gson.toJson(json).getBytes(), true, 0);
+            } catch (EcoMQTTManagerNotFoundException | EcoMQTTPluginNotFoundException ex) {
+                Logger.getLogger(EnableDisableListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
           
@@ -57,18 +57,18 @@ public class EnableDisableListener{
      */
     public void onDisable() {
         // ログアウトのpublishが無効であれば何もしない
-        if (!conf.getBoolean("Topic.OnDisable.Enable")) return;
-        
-        // QoS 0 でユーザーログアウト情報を通知する
-        EnableDisableJson json = new EnableDisableJson(
-                "ondisable",
-                new SimpleDateFormat(conf.getString("DateFormat")).format(new Date()),
-                conf.getString("Topic.OnDisable.URL")
-        );
-        try {
-            ((EcoMQTTServerLog)plg).getMQTTController().publish(MQTTManager.cnv(conf.getString("Topic.OnDisable.Format"), plg.getName()), gson.toJson(json).getBytes(), true, 0);
-        } catch (EcoMQTTManagerNotFoundException | EcoMQTTPluginNotFoundException ex) {
-            Logger.getLogger(EnableDisableListener.class.getName()).log(Level.SEVERE, null, ex);
+        if (conf.getBoolean("Topic.OnDisable.Enable")) {
+            // QoS 0 でユーザーログアウト情報を通知する
+            EnableDisableJson json = new EnableDisableJson(
+                    "ondisable",
+                    new SimpleDateFormat(conf.getString("DateFormat")).format(new Date()),
+                    conf.getString("Topic.OnDisable.URL")
+            );
+            try {
+                ((EcoMQTTServerLog)plg).getMQTTController().publish(MQTTManager.cnv(conf.getString("Topic.OnDisable.Format"), plg.getName()), gson.toJson(json).getBytes(), true, 0);
+            } catch (EcoMQTTManagerNotFoundException | EcoMQTTPluginNotFoundException ex) {
+                Logger.getLogger(EnableDisableListener.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

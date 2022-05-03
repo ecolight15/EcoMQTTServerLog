@@ -1,6 +1,7 @@
 name: EcoMQTTServerLog
 main: jp.minecraftuser.ecomqttserverlog.EcoMQTTServerLog
 version: ${project.version}
+api-version: 1.18
 depend: [EcoFramework, EcoMQTT]
 commands:
   ecms:
@@ -11,3 +12,16 @@ commands:
     description: reload config.yml
     usage: /ecms reload
     permission: ecomqttserverlog.reload
+  ecms player:
+    description: Displays data for players buffered by the plug-in.
+    usage: /ecms player
+    permission: ecomqttserverlog.player
+  uuid:
+    description: uuid command.
+    usage: /<command> option
+    permission: ecouser.uuid
+  uname:
+    description: uname command.
+    usage: /<command> option
+    permission: ecouser.uname
+    
