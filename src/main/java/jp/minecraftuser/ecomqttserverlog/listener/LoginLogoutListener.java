@@ -83,6 +83,7 @@ public class LoginLogoutListener extends ListenerFrame {
                 con = db.connect();
                 db.checkPlayer(con, p);
                 con.commit();
+                con.close();
             } catch (SQLException ex) {
                 Logger.getLogger(LoginLogoutListener.class.getName()).log(Level.SEVERE, null, ex);
             }

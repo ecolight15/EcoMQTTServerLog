@@ -292,6 +292,7 @@ public class EcoMQTTServerLog extends PluginFrame {
             con = db.connect();
             ret = db.latestUUID(con, name);
             con.commit();
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginLogoutListener.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -315,6 +316,7 @@ public class EcoMQTTServerLog extends PluginFrame {
             con = db.connect();
             ret = db.latestName(con, uuid);
             con.commit();
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(LoginLogoutListener.class.getName()).log(Level.SEVERE, null, ex);
         }
