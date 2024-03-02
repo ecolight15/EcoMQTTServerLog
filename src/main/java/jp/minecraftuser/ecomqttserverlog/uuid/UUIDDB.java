@@ -83,12 +83,15 @@ public class UUIDDB extends DatabaseFrame {
     public void checkPlayer(Connection con, OfflinePlayer player) {
         if (con == null) { log.log(Level.SEVERE, "Invalid connection."); return;}
         String latestName = latestName(con, player.getUniqueId());
+        UUID latestUuid = latestUUID(con, latestName);
         // 最後に登録してある名前と現在の名前が同じなら登録の必要なし
         // 最後に登録した名前がない(新規)、または名前が変わっている場合には継続
-        if ((latestName != null) && (player.getName().equals(latestName))) {
+        if ((latestName != null) && (player.getName().equals(latestName)) && (latestUuid != null) && (latestUuid.compareTo(player.getUniqueId()) == 0)) {
             log.info("not change name["+latestName+"]");
             return;
         }
+        log.info(plg.getName() + " latestName[" + latestName + " / " + player.getName() + "]"
+            + " latestUuid[" + latestUuid + " / " + player.getUniqueId() + "]");
 
         PreparedStatement prep = null;
         try {
