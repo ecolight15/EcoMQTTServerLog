@@ -20,7 +20,10 @@ Topic:
     Enable: true
     Format: "{server}/p/{plugin}/logout"
     URL: ""
-
+  UserFirstLogin:
+    Enable: true
+    Format: "{server}/p/{plugin}/firstlogin"
+    URL: ""
 Mqtt:
   Publish:
     QoS: 0

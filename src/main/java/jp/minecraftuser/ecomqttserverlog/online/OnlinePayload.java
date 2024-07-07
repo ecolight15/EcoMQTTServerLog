@@ -37,6 +37,7 @@ public class OnlinePayload extends PayloadFrame {
         SERVER_JOIN,
         SERVER_QUIT,
         SERVER_UPDATE,
+        SERVER_FIRST_JOIN,
     }
     
     /**
