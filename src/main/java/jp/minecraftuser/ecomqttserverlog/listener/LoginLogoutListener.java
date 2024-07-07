@@ -47,8 +47,11 @@ public class LoginLogoutListener extends ListenerFrame {
     public void PlayerJoinEvent(PlayerJoinEvent event) {
         if (plugin.onlinePlayers == null) plugin.onlinePlayers = new ConcurrentHashMap<>();
         OnlineThread worker = OnlineThread.getInstance(plg, "online");
-        OnlinePayload data = new OnlinePayload(plg, event.getPlayer(), OnlinePayload.Type.SERVER_JOIN);
-        worker.sendData(data);
+        worker.sendData(new OnlinePayload(plg, event.getPlayer(), OnlinePayload.Type.SERVER_JOIN));
+        //新規プレイヤーなら初回ログインメッセージを送信
+        if(!event.getPlayer().hasPlayedBefore()) {
+            worker.sendData(new OnlinePayload(plg, event.getPlayer(), OnlinePayload.Type.SERVER_FIRST_JOIN));
+        }
     }
           
     /**

@@ -125,6 +125,9 @@ public class EcoMQTTServerLog extends PluginFrame {
         conf.registerBoolean("Topic.UserLogout.Enable");
         conf.registerString("Topic.UserLogout.Format");
         conf.registerString("Topic.UserLogout.URL");
+        conf.registerBoolean("Topic.UserFirstLogin.Enable");
+        conf.registerString("Topic.UserFirstLogin.Format");
+        conf.registerString("Topic.UserFirstLogin.URL");
 
         // MQTT settings
         conf.registerInt("Mqtt.Publish.QoS");

@@ -55,6 +55,7 @@ public class OnlineThread extends AsyncProcessFrame {
         tasktable.put(OnlinePayload.Type.SERVER_JOIN, OnlineTaskJoin.getInstance(plg));
         tasktable.put(OnlinePayload.Type.SERVER_QUIT, OnlineTaskQuit.getInstance(plg));
         tasktable.put(OnlinePayload.Type.SERVER_UPDATE, OnlineTaskUpdate.getInstance(plg));
+        tasktable.put(OnlinePayload.Type.SERVER_FIRST_JOIN, OnlineTaskFirstJoin.getInstance(plg));
         tasktable.put(OnlinePayload.Type.CMD_SHOW, OnlineTaskCmdPlayer.getInstance(plg));
     }
     
