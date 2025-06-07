@@ -93,11 +93,11 @@ OnlinePlayerLogger:
   - 権限: `ecomqttserverlog.player`
 
 ### /uuid \<プレイヤー名\>
-指定したプレイヤーのUUIDを表示
+指定したプレイヤー名の最後のUUIDと、同じUUIDのプレイヤーをサーバーの記録から一覧作成
 - 権限: `ecouser.uuid`
 
 ### /uname \<UUID\>
-指定したUUIDのプレイヤー名を表示
+指定したプレイヤー名でサーバーにログインしていたユーザーの一覧を取得
 - 権限: `ecouser.uname`
 
 ## MQTTメッセージ形式
@@ -152,6 +152,51 @@ OnlinePlayerLogger:
 ```
 
 **注記**: 現在のMessage内のフォーマットは検討の余地があります。AWS IoT => Lambda への送信を考慮すると、より構造化されたJSON形式での送信が推奨されます。
+
+## AWS Lambda でのMQTTトピックの制御例
+
+```python
+import requests
+import hashlib
+import hmac
+
+def hash_ip(ip_address, salt, iterations=10000):
+    result = hmac.new(salt.encode(), ip_address.encode(), hashlib.sha256).digest()
+    for _ in range(iterations):
+        result = hmac.new(salt.encode(), result, hashlib.sha256).digest()
+    hex_result = result.hex()[-10:]
+    return hex_result
+
+def lambda_handler(event, context):
+    topic = event["topicName"]
+    topics = topic.split('/')
+    server = topics[0]
+    if (topic.startswith("server")):
+        if (topic.endswith("/p/EcoMQTTServerLog/login") or
+            topic.endswith("/p/EcoMQTTServerLog/firstlogin") or
+            topic.endswith("/p/EcoMQTTServerLog/logout") or
+            topic.endswith("/p/EcoMQTTServerLog/onenable") or
+            topic.endswith("/p/EcoMQTTServerLog/ondisable")):
+            url = event["payload"]["url"]
+            date = event["payload"]["date"]
+            if topic.endswith('/onenable'):
+                msg="["+date+"] サーバー("+server+") プラグイン起動の通知を受信"
+            elif topic.endswith('/ondisable'):
+                msg="["+date+"] サーバー("+server+") プラグイン停止の通知を受信"
+            elif topic.endswith('/login') or topic.endswith('/logout') or topic.endswith('/firstlogin'):
+                count = event["payload"]["count"]
+                name = event["payload"]["player"]["name"]
+                host = hash_ip(event["payload"]["player"]["host"], "saltsaltsalt", 1234)
+                if topic.endswith('/login'):
+                    msg="["+date+"] サーバー("+server+") ["+name+" (host:" + host + ")]がログインしました(現在 "+count+"人)"
+                if topic.endswith('/firstlogin'):
+                    msg="["+date+"] サーバー("+server+") **["+name+" (host:" + host + ")]**が初めてログインしました(現在 "+count+"人)"
+                if topic.endswith('/logout'):
+                    msg="["+date+"] サーバー("+server+") ["+name+" (host:" + host + ")]がログアウトしました(現在 "+count+"人)"
+            requests.post(url, {'content': msg})
+```
+
+このコードは AWS IoT へ接続し Lambda へ接続している例を示しています。
 
 ## ライセンス
 
